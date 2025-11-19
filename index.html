@@ -3231,7 +3231,12 @@ document.addEventListener('DOMContentLoaded', function() {
         header.style.cursor = 'pointer';
     });
 });
-</script>
+</script><script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const imgs = document.querySelectorAll("img");
+    imgs.forEach(img => img.setAttribute("loading", "lazy"));
+  });
+</script>                               
 </body>
 </html>
 <!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1762783791 -->
