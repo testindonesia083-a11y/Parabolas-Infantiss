@@ -3224,29 +3224,18 @@ document.addEventListener('DOMContentLoaded', function() {
         header.style.cursor = 'pointer';
     });
 });
-</script><!-- Otimização de carregamento rápido -->
-<script>
+</script><script>
   // Lazy load automático em todas imagens
-  document.addEventListener("DOMContentLoaded", function () {
-    const imgs = document.querySelectorAll("img");
-    imgs.forEach(img => {
-      if (!img.hasAttribute("loading")) {
-        img.setAttribute("loading", "lazy");
-      }
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("img").forEach(img => {
+      img.setAttribute("loading", "lazy");
     });
   });
 
-  // Adiar scripts pesados
-  window.addEventListener("load", function () {
-    const heavyScripts = [
-      "script.js", // coloque aqui os scripts pesados
-      "carousel.js"
-    ];
-    heavyScripts.forEach(src => {
-      const s = document.createElement("script");
-      s.src = src;
-      s.defer = true;
-      document.body.appendChild(s);
+  // Defer automático em todos scripts externos
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('script[src]').forEach(tag => {
+      tag.setAttribute("defer", "true");
     });
   });
 </script>
