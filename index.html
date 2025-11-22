@@ -3152,22 +3152,27 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
-// Script para atualizar a data da oferta automaticamente
+// Script para mostrar somente o dia de hoje
 // ============================================
 function updateOfferDeadline() {
     const deadlineElement = document.getElementById('offer-deadline');
     
     if (deadlineElement) {
-        // Pegar a data de hoje
         const today = new Date();
-        today.setDate(today.getDate() + 1);
-        
+
         // Formatar como DD/MM
         const day = String(today.getDate()).padStart(2, '0');
         const month = String(today.getMonth() + 1).padStart(2, '0');
-        
+
         deadlineElement.textContent = `${day}/${month}`;
     }
+}
+
+// Atualizar quando a página carregar
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateOfferDeadline);
+} else {
+    updateOfferDeadline();
 }
 
 // Atualizar a data quando a página carregar
@@ -3180,12 +3185,20 @@ if (document.readyState === 'loading') {
 // Atualizar a data à meia-noite de cada dia
 function scheduleNextUpdate() {
     const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);
-    const msUntilMidnight = tomorrow - now;
     
+    // Próxima meia-noite
+    const nextMidnight = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0, 0, 1
+    );
+    
+    const msUntilMidnight = nextMidnight - now;
+
     setTimeout(() => {
-        updateOfferDeadline();
-        scheduleNextUpdate();
+        updateOfferDeadline(); // Atualiza para o novo dia
+        scheduleNextUpdate(); // Reagenda para o próximo ciclo
     }, msUntilMidnight);
 }
 
